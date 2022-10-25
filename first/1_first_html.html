@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {margin: 1rem; padding: 0; box-sizing: border-box;}
+        .box { width: 200px; height: 200px;}
+        .red {background-color: red;}
+        .blue {background-color: blue;}
+        .green {background-color: green;}
+        .purple {background-color: purple;}
+        .yellow {background-color: yellow;}
+        .black {background-color: black;}
+        .row {display: flex; }
+        button { display: block; margin: 1rem 3rem;}
+        [v-cloak] {display: none;}
+    </style>
+</head>
+<body>
+    <div id="application" v-cloak>
+        {{ greeting }}
+
+        <input @keyup.enter="greet(greeting)" v-model="greeting" />
+
+        <hr>
+
+        <div v-if="red" class="box red"></div>
+        <div v-else-if="green" class="box green"></div>
+        <div v-else class="box blue"></div>
+
+        <div v-show="purple" class="box purple"></div>
+
+        <div class="row">
+            <div>
+                <button v-on:click="yellow=!yellow">Toggle Yellow Box</button>
+                <div v-if="yellow" class="box yellow"></div>
+            </div>
+            <div>
+                <button @click="toggleBlackBox">Toggle Black Box</button>
+                <div v-if="black" class="box black"></div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data: function() {
+                return {
+                    greeting: 'Hello world!',
+                    red: 0,
+                    green: 0,
+                    purple: 0,
+                    yellow: 0,
+                    black: 0
+                }
+            },
+            methods: {
+                toggleBlackBox() {
+                    this.black = !this.black;
+                },
+                greet(gr) {
+                    console.log(gr);
+                }
+            }
+        });
+        app.mount("#application");
+    </script>
+</body>
+</html>
